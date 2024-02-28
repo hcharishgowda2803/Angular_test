@@ -1,0 +1,82 @@
+<div *ngIf="loading" class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div>
+  <div class="header"><u>Users Table</u></div>
+  <form>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" [disabled]="emailFilter" [(ngModel)]="nameFilter" (input)="filterUsers()">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"  [disabled]="nameFilter" [(ngModel)]="emailFilter" (input)="filterUsers()">
+  </form>
+</div>
+<div  class="padding-20" *ngIf="usersDetails && usersDetails.length && !loading && filteredUserDetails && !filteredUserDetails.length">
+  <table class="table">
+    <thead>
+    <tr class="table-dark">
+      <th scope="col">Sl No</th>
+      <th scope="col">Name</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of usersDetails, let i = index;">
+      <th scope="row">{{i+1}}</th>
+      <td class="table-secondary" *ngIf="row && row.name">{{row.name}}</td>
+      <td *ngIf="row && row.username">{{row.username}}</td>
+      <td class="table-secondary" *ngIf="row && row.email">{{row.email}}</td>
+      <td *ngIf="row && row.phone">{{row.phone}}</td>
+      <td class="table-secondary" style="display: flex; justify-content: space-between">
+        <button type="button" class="btn btn-success" (click)="navToDetails(row)">View</button>
+        <button type="button" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="float-left">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<div *ngIf="filteredUserDetails && filteredUserDetails.length && !loading">
+  <table class="table">
+    <thead>
+    <tr class="table-dark">
+      <th scope="col">Sl No</th>
+      <th scope="col">Name</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of filteredUserDetails, let i = index;">
+      <th scope="row">{{i+1}}</th>
+      <td class="table-secondary" *ngIf="row && row.name">{{row.name}}</td>
+      <td *ngIf="row && row.username">{{row.username}}</td>
+      <td class="table-secondary" *ngIf="row && row.email">{{row.email}}</td>
+      <td *ngIf="row && row.phone">{{row.phone}}</td>
+      <td class="table-secondary" style="display: flex; justify-content: space-between">
+        <button type="button" class="btn btn-success" (click)="navToDetails(row)">View</button>
+        <button type="button" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
